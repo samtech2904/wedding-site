@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+  <title>Mariage — Raissa &amp; Savio</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Dosis:wght@400;500&family=Great+Vibes&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.1/build/qrcode.min.js" defer></script>
+  <script src="js/main.js" defer></script>
+
+  <style>
+    /* Styles pour sections responsive */
+    section {
+      background-position: center center;
+      background-repeat: no-repeat;
+      background-size: cover;
+      min-height: 100vh;
+      width: 100%;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      color: #fff;
+      padding: 40px 20px;
+    }
+
+    /* Overlay semi-transparent */
+    .overlay {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background-color: rgba(0,0,0,0.5);
+      z-index: 1;
+    }
+
+    /* Contenu au-dessus de l'overlay */
+    .content {
+      position: relative;
+      z-index: 2;
+      max-width: 900px;
+      width: 100%;
+    }
+
+    /* Responsive text */
+    h1, h2, p {
+      margin: 10px 0;
+      word-wrap: break-word;
+    }
+
+    /* Inputs et textarea */
+    input, textarea {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 15px;
+      border-radius: 5px;
+      border: none;
+      font-size: 1rem;
+    }
+
+    button.btn {
+      padding: 10px 20px;
+      font-size: 1rem;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .drinks-grid {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+
+    .drink-btn {
+      padding: 8px 15px;
+      border-radius: 20px;
+      border: none;
+      cursor: pointer;
+      font-size: 0.9rem;
+    }
+  </style>
+</head>
+<body>
+
+<main id="page">
+
+  <!-- ===== SECTION 1: HERO (PHOTO DU COUPLE) ===== -->
+  <section id="hero" style="background-image: url('WhatsApp Image 2025-08-29 at 09.01.22_63d76c74.jpg');">
+    <div class="overlay"></div>
+    <div class="content">
+      <h1 class="couple-names">Raissa &amp; Savio</h1>
+      <p class="date">20 septembre 2025</p>
+    </div>
+  </section>
+
+  <!-- ===== SECTION 2: INVITATION ===== -->
+  <section id="invitation" style="background-image: url('uploads/images/bg-invitation.jpg');">
+    <div class="overlay"></div>
+    <div class="content">
+      <p class="hero-sub">
+        Raissa et Savio ont l’honneur de vous inviter à leur <strong>mariage coutumier</strong>.<br>
+        <strong>Lieu de la fête :</strong> <span id="venueText" class="highlight">chapiteau</span>
+      </p>
+    </div>
+  </section>
+
+  <!-- ===== SECTION 3: LIVRE D'OR ===== -->
+  <section id="messagesSection" style="background-image: url('uploads/images/bg-livre-dor.jpg');">
+    <div class="overlay"></div>
+    <div class="content">
+      <div class="panel" id="messagesPanel">
+        <h2>📬 Livre d'or</h2>
+        <input id="guestName" type="text" placeholder="Votre nom (ex: Mr Serge ILUNGA)" />
+        <textarea id="guestMessage" rows="5" placeholder="Laissez un petit mot aux mariés...">Oui j'y viendrai</textarea>
+        <div class="panel-actions">
+          <button id="sendMessageBtn" class="btn btn-primary">Envoyer</button>
+        </div>
+        <div id="messagesList" class="messages-list" aria-live="polite"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== SECTION 4: PREFERENCES ===== -->
+  <section id="preferences" style="background-image: url('uploads/images/bg-preferences.jpg');">
+    <div class="overlay"></div>
+    <div class="content">
+      <h2>🍹 Vos préférences (Boissons)</h2>
+      <p class="muted">Choisissez jusqu'à 2 options pour aider les mariés.</p>
+      <div class="drinks-grid" id="drinksGrid">
+        <button class="drink-btn" data-drink="Castel">Castel</button>
+        <button class="drink-btn" data-drink="Beaufort">Beaufort</button>
+        <button class="drink-btn" data-drink="Simba">Simba</button>
+        <button class="drink-btn" data-drink="Tembo">Tembo</button>
+        <button class="drink-btn" data-drink="whiskey">whiskey</button>
+        <button class="drink-btn" data-drink="Dopel">Dopel</button>
+        <button class="drink-btn" data-drink="Chui">Chui</button>
+        <button class="drink-btn" data-drink="heineken">heineken</button>
+        <button class="drink-btn active" data-drink="savana">savana</button>
+        <button class="drink-btn" data-drink="Vin">Vin</button>
+        <button class="drink-btn" data-drink="Coca">Coca</button>
+        <button class="drink-btn" data-drink="Fanta">Fanta</button>
+        <button class="drink-btn" data-drink="spirte">spirte</button>
+        <button class="drink-btn" data-drink="Ceres">Ceres</button>
+        <button class="drink-btn active" data-drink="Eau">Eau</button>
+      </div>
+      <div class="panel-actions">
+        <button id="savePrefsBtn" class="btn btn-primary">Sauvegarder mes préférences</button>
+      </div>
+      <p id="prefsSaved" class="muted small hide">Préférences sauvegardées.</p>
+    </div>
+  </section>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="footer">
+    <p class="muted">© Raissa &amp; Savio — Invitation privée</p>
+  </footer>
+
+</main>
+
+</body>
+</html>
+
+
+
+
